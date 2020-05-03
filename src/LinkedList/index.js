@@ -36,11 +36,67 @@
         this.length++;
         return this;
      }
+     traverse(){
+         var current = this.head;
+         while(current){
+             console.log(current.val);
+             current = current.next
+         }
+     }
+     /**
+      * Popping Pseudocode
+      * If there are no nodes in the list, return undefined
+      * Loop throught the list until you reach the tail
+      * set the next property of the 2nd to the last node to be null
+      * Set the tail to be the second to the last node
+      * Decrement the length by the list of 1
+      * Return the value of the node removed
+      */
+     pop(){
+        if(!this.head) return undefined;
+        var current = this.head;
+        var newTail = current;
+        while(current.next){
+            newTail = current;
+            current = current.next;
+        }
+        this.tail = newTail;
+        this.tail.next = null;
+        this.length--;
+        if(this.length === 0){
+            this.head = null;
+            this.tail = null;
+        }
+        return current;
+
+    }
+    shift(){
+        if(!this.head) return undefined;
+        var currentHead = this.head;
+        this.head = currentHead.next;
+        this.length--;
+        if(this.length == 0){
+            this.tail = null
+        }
+        return currentHead;
+    }
+    unshift(val){
+        var newNode = new Node(val);
+        if(!this.head){
+            this.head = newNode;
+            this.tail= this.head;
+        } else {
+            newNode.next = this.head;
+            this.head = newNode;
+        } 
+        this.length++;
+        return this;
+    }
  }
 
  var list = new singlyLinkedList();
 
  list.push("first")
  list.push("second")
-
- console.log(list)
+ list.unshift("hello")
+ list.traverse();
