@@ -92,11 +92,45 @@
         this.length++;
         return this;
     }
+    get(index){
+        if(index < 0 || index >= this.length) return null;
+        var counter = 0;
+        var current = this.head;
+        while(counter !== index){
+            current = current.next;
+            counter++;
+        }
+        return current;
+    }
+    set(index, val){
+        var foundNode = this.get(index);
+        if(foundNode){
+            foundNode.val = val;
+            return true;
+        }
+        return false;
+    }
+    insert(index, val){
+        if(index < 0 || index > this.length) return false;
+        if(index === this.length) return !!this.push(val);
+        if(index === 0) return !!this.unshift(val);
+        var newNode = new Node(val)
+        var prev = this.get(index - 1) 
+        var temp = prev.next;
+        prev.next = newNode;
+        newNode.next = temp;
+        this.length++;
+        return true;
+    }
  }
 
  var list = new singlyLinkedList();
 
  list.push("first")
  list.push("second")
- list.unshift("hello")
- list.traverse();
+ list.push("hello")
+ list.push("I")
+ list.push("<3")
+ list.push("Data structures")
+ list.insert(3, "Yooloo");
+ list.traverse()
